@@ -1,0 +1,1 @@
+ALTER TABLE `evidence` ADD `task_cycle` integer DEFAULT 0 NOT NULL;

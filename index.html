@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="bn" class="light">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#102a2c" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ল্যান্ডশিল্ড বাংলাদেশ · ভূমিসেবা</title>
+    <meta name="description" content="জমি অনুসন্ধান, উৎস রেকর্ড, দলিল OCR থেকে PDF ও Word রিপোর্ট, ভূমির আবেদন এবং ক্রেতার যাচাইয়ের বাংলা কর্মক্ষেত্র।" />
+    
+    <script>
+      (() => { let choice; try { choice = localStorage.getItem("ns-theme"); } catch {} const theme = choice === "dark" || choice === "light" ? choice : matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; document.documentElement.dataset.theme = theme; document.documentElement.className = theme; document.documentElement.style.colorScheme = theme; document.querySelector('meta[name="theme-color"]').content = theme === "dark" ? "#101c1b" : "#f5f8f7"; })();
+    </script>
+
+    
+  </head>
+  <body class="bg-slate-50 text-slate-900 font-sans antialiased selection:bg-emerald-600 selection:text-white">
+    <div id="root"></div>
+    <noscript>এই কর্মক্ষেত্র ব্যবহার করতে ব্রাউজারে JavaScript চালু করুন। Please enable JavaScript to use this workspace.</noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
