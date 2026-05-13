@@ -1,0 +1,55 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1791455776659,
+      "tag": "0000_dear_madripoor",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1791456914460,
+      "tag": "0001_old_daredevil",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1791695484659,
+      "tag": "0002_typical_proudstar",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1791699677687,
+      "tag": "0003_slim_maria_hill",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1791869770476,
+      "tag": "0004_busy_namor",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1792302020377,
+      "tag": "0005_famous_colossus",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1792307631448,
+      "tag": "0006_wild_sue_storm",
+      "breakpoints": true
+    }
+  ]
+}
