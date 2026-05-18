@@ -1,0 +1,4 @@
+@tailwind base;
+
+body { margin: 0; background: var(--canvas, #f1f5f3); color: var(--ink, #172a22); -webkit-font-smoothing: antialiased; }
+::selection { background: #087557; color: #fff; }
