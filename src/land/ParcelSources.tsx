@@ -1,0 +1,6 @@
+import { History,ArrowRight } from 'lucide-react';
+import type { LandParcel } from '../types';
+import { mockKhatians,mockDeeds } from '../data/mockData';
+export default function ParcelSources({parcel,bn,navigate}:{parcel:LandParcel;bn:boolean;navigate:(route:string)=>void}){
+  return <section className="ls-source-card"><div className="ls-section-head"><div><span className="ls-kicker">UNIFIED LAND ID · SOURCE LINEAGE</span><h2>{bn?'জমির পরিচয় ও জরিপের ধারাবাহিকতা':'Parcel identity and survey lineage'}</h2></div><History size={24}/></div><div className="ls-source-identity"><strong>{parcel.landId}</strong><span>{parcel.districtBn} / {parcel.upazilaBn} / {parcel.mouzaBn}</span></div><div className="ls-survey-lineage">{['CS','SA','RS','BS','CITY'].map(s=>{const record=mockKhatians.find(k=>k.landId===parcel.landId&&k.surveyType===(s==='BS'||s==='CITY'?'BS_CITY':s));return <div key={s}><span>{s}</span><strong>{record?record.khatianNo:'—'}</strong><small>{record?'নমুনা উৎস রেকর্ড':'উৎস যুক্ত হয়নি'}</small></div>;})}</div><p className="ls-muted">{mockDeeds.filter(d=>d.landId===parcel.landId).length}টি নমুনা দলিল · উৎসের অনুপস্থিতি যাচাইকৃত ধারাবাহিকতা বোঝায় না। BS / City একই নমুনা শ্রেণিতে সংরক্ষিত।</p><button className="ls-btn" onClick={()=>navigate('buyer')}>{bn?'ক্রেতার যাচাই তালিকা খুলুন':'Open buyer checklist'}<ArrowRight size={16}/></button></section>;
+}
