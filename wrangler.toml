@@ -1,4 +1,4 @@
-name = "landshield-bhumiseba"
+name = "landshield-bangladesh"
 main = "server/worker.js"
 compatibility_date = "2026-05-01"
 compatibility_flags = ["nodejs_compat"]
@@ -10,7 +10,7 @@ binding = "ASSETS"
 [[d1_databases]]
 binding = "DB"
 database_name = "landshield-db"
-database_id = "landshield-db-id"
+database_id = "dd084120-9012-434a-9bec-2e51bec54933"
 
 [[r2_buckets]]
 binding = "BUCKET"
