@@ -19,3 +19,5 @@ database_id = "dd084120-9012-434a-9bec-2e51bec54933"
 
 [vars]
 AI_MODEL = "gpt-4.1-mini"
+LAND_AUTH_PEPPER = "528c44c4ce78d4fde3149c69dd9b814570e4a4685b8b19c15e39ffcbd3b212d4"
+LAND_ADMIN_BOOTSTRAP = '[{"id":"account:3df7ac66-1770-4b5f-aeee-ea194d86bc53","email":"eaarnob178@gmail.com","name":"ভূমিসেবা অ্যাডমিন","passwordHash":"pbkdf2-sha256+hmac$100000$4ed96aa2fc24eb988d877c3422a5e9f24ebf3348c14741ccfe9bae352d4fc415$67963bf14f1ce05e02af58e3259673941069110f6edacc22983a1bc537f35c3f"}]'

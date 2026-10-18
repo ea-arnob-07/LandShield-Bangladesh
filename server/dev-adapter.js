@@ -22,7 +22,7 @@ export function createLocalEnv(root, memory=false) {
   };
   // DatabaseSync statements must stay in one uninterrupted transaction. Awaiting
   // between them allowed other requests to read partial writes or begin a batch.
-  const DB={prepare,async batch(statements){sqlite.exec('BEGIN IMMEDIATE');try{const out=statements.map(s=>s[runSync]());sqlite.exec('COMMIT');return out;}catch(e){sqlite.exec('ROLLBACK');throw e;}}};
+  const DB={exec:(sql)=>sqlite.exec(sql),prepare,async batch(statements){sqlite.exec('BEGIN IMMEDIATE');try{const out=statements.map(s=>s[runSync]());sqlite.exec('COMMIT');return out;}catch(e){sqlite.exec('ROLLBACK');throw e;}}};
   const pathFor=key=>{if(!/^(?:land-evidence|evidence)\/[\w-]+$/.test(key))throw new Error('Invalid object key');return join(data,'media',key.split('/')[1]);};
   const BUCKET={async put(key,bytes){writeFileSync(pathFor(key),Buffer.from(bytes));},async get(key){const p=pathFor(key);return existsSync(p)?{body:readFileSync(p)}:null;},async delete(key){const p=pathFor(key);if(existsSync(p))unlinkSync(p);}};
   const ASSETS={async fetch(req){const name=new URL(req.url).pathname.match(/^\/demo\/(sample-deed\.png|application-report\.pdf|document-report\.docx)$/)?.[1];if(!name||!existsSync(join(root,'public','demo',name)))return new Response('Not found',{status:404});return new Response(readFileSync(join(root,'public','demo',name)));}};

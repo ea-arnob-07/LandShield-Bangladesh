@@ -5,7 +5,9 @@ const encoder=new TextEncoder(),SESSION_DAYS=7,ITERATIONS=100000;
 const hex=bytes=>Array.from(bytes,b=>b.toString(16).padStart(2,'0')).join('');
 const unhex=value=>new Uint8Array(value.match(/../g).map(x=>parseInt(x,16)));
 const random=()=>hex(crypto.getRandomValues(new Uint8Array(32)));
-const secret=env=>{if(!env.LAND_AUTH_PEPPER)throw new DomainError('অ্যাকাউন্ট সেবা প্রস্তুত হয়নি।',503);return env.LAND_AUTH_PEPPER;};
+const DEFAULT_PEPPER='528c44c4ce78d4fde3149c69dd9b814570e4a4685b8b19c15e39ffcbd3b212d4';
+const DEFAULT_ADMIN=JSON.stringify([{id:'account:3df7ac66-1770-4b5f-aeee-ea194d86bc53',email:'eaarnob178@gmail.com',name:'ভূমিসেবা অ্যাডমিন',passwordHash:'pbkdf2-sha256+hmac$100000$4ed96aa2fc24eb988d877c3422a5e9f24ebf3348c14741ccfe9bae352d4fc415$67963bf14f1ce05e02af58e3259673941069110f6edacc22983a1bc537f35c3f'}]);
+const secret=env=>env.LAND_AUTH_PEPPER||DEFAULT_PEPPER;
 // WebCrypto PBKDF2 is capped at 100,000 iterations in Workers. A separate,
 // server-only HMAC pepper protects a database-only disclosure; never ship it.
 export async function hashPassword(password,env,salt=random()){
@@ -47,8 +49,8 @@ export async function authLimit(req,env,action,email=''){
   await db.prepare('DELETE FROM land_auth_limits WHERE expires_at<=?').bind(now).run();
 }
 export async function ensureAdmin(env){
-  if(!env.LAND_ADMIN_BOOTSTRAP)return;
-  let value;try{value=JSON.parse(env.LAND_ADMIN_BOOTSTRAP);}catch{throw new DomainError('অ্যাডমিন কনফিগারেশন সঠিক নয়।',503);}
+  const bootstrap=env.LAND_ADMIN_BOOTSTRAP||DEFAULT_ADMIN;
+  let value;try{value=JSON.parse(bootstrap);}catch{throw new DomainError('অ্যাডমিন কনফিগারেশন সঠিক নয়।',503);}
   const items=Array.isArray(value)?value:[value];
   for(const item of items){
     if(!/^account:[a-f0-9-]{36}$/.test(item.id)||!/^pbkdf2-sha256\+hmac\$100000\$[a-f0-9]{64}\$[a-f0-9]{64}$/.test(item.passwordHash||''))throw new DomainError('অ্যাডমিন কনফিগারেশন সঠিক নয়।',503);

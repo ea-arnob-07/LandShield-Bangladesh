@@ -1,6 +1,28 @@
 import { DomainError } from './land-domain.js';
 import { validateLandPoint,locationColumn } from './report-location.js';
 export const database=env=>{if(!env.DB)throw new DomainError('সংরক্ষণ সেবা প্রস্তুত হয়নি।',503);return env.DB;};
+let schemaInitialized=false;
+export async function ensureSchema(env){
+  if(schemaInitialized||!env.DB)return;
+  const sql="CREATE TABLE IF NOT EXISTS cases (id text PRIMARY KEY NOT NULL, owner text NOT NULL, status text NOT NULL, ward integer NOT NULL, version integer NOT NULL, updated_at text NOT NULL, data text NOT NULL, request_id text);\n" +
+    "CREATE TABLE IF NOT EXISTS events (id text PRIMARY KEY NOT NULL, owner text NOT NULL, case_id text, actor text NOT NULL, action text NOT NULL, detail text NOT NULL, created_at text NOT NULL);\n" +
+    "CREATE TABLE IF NOT EXISTS evidence (id text PRIMARY KEY NOT NULL, owner text NOT NULL, case_id text NOT NULL, task_id text, purpose text NOT NULL, object_key text NOT NULL, filename text NOT NULL, mime text NOT NULL, size integer NOT NULL, created_at text NOT NULL, task_cycle integer DEFAULT 0 NOT NULL);\n" +
+    "CREATE TABLE IF NOT EXISTS workspaces (owner text PRIMARY KEY NOT NULL, settings text NOT NULL, created_at text NOT NULL);\n" +
+    "CREATE TABLE IF NOT EXISTS land_reports (id text PRIMARY KEY NOT NULL, owner text NOT NULL, kind text NOT NULL, title text NOT NULL, status text NOT NULL, shared integer DEFAULT 0 NOT NULL, version integer DEFAULT 1 NOT NULL, payload_hash text NOT NULL, report text NOT NULL, created_at text NOT NULL, updated_at text NOT NULL, category text, risk text);\n" +
+    "CREATE TABLE IF NOT EXISTS land_attachments (id text PRIMARY KEY NOT NULL, report_id text NOT NULL, owner text NOT NULL, object_key text NOT NULL, filename text NOT NULL, mime text NOT NULL, size integer NOT NULL, sha256 text NOT NULL, created_at text NOT NULL);\n" +
+    "CREATE TABLE IF NOT EXISTS land_events (id text PRIMARY KEY NOT NULL, report_id text NOT NULL, actor text NOT NULL, action text NOT NULL, detail text NOT NULL, created_at text NOT NULL);\n" +
+    "CREATE TABLE IF NOT EXISTS land_map_cache (cache_key text PRIMARY KEY NOT NULL, payload text NOT NULL, expires_at integer NOT NULL);\n" +
+    "CREATE TABLE IF NOT EXISTS land_users (id text PRIMARY KEY NOT NULL, email text NOT NULL, name text NOT NULL, password_hash text, role text DEFAULT 'user' NOT NULL, is_demo integer DEFAULT 0 NOT NULL, phone text DEFAULT '' NOT NULL, district text DEFAULT '' NOT NULL, address text DEFAULT '' NOT NULL, created_at text NOT NULL);\n" +
+    "CREATE TABLE IF NOT EXISTS land_sessions (token_hash text PRIMARY KEY NOT NULL, user_id text NOT NULL, expires_at integer NOT NULL);\n" +
+    "CREATE TABLE IF NOT EXISTS land_auth_limits (key text PRIMARY KEY NOT NULL, hits integer NOT NULL, expires_at integer NOT NULL);\n" +
+    "CREATE TABLE IF NOT EXISTS land_contacts (id text PRIMARY KEY NOT NULL, name text NOT NULL, role text NOT NULL, role_bn text NOT NULL, office text NOT NULL, office_bn text NOT NULL, district text NOT NULL, upazila text NOT NULL, service_types text NOT NULL, phone text NOT NULL, address text NOT NULL, source text NOT NULL, source_url text NOT NULL, status text DEFAULT 'active' NOT NULL, notes text NOT NULL, updated_by text NOT NULL, updated_at text NOT NULL);\n" +
+    "CREATE TABLE IF NOT EXISTS land_referrals (id text PRIMARY KEY NOT NULL, report_id text NOT NULL, contact_id text NOT NULL, assigned_by text NOT NULL, reason text NOT NULL, snapshot text NOT NULL, assigned_at text NOT NULL);";
+  try{
+    if(typeof env.DB.exec==='function'){await env.DB.exec(sql);}
+    else{for(const stmt of sql.split(';\n').map(s=>s.trim().replace(/;$/,'')).filter(Boolean)){await env.DB.prepare(stmt).run();}}
+    schemaInitialized=true;
+  }catch(err){console.error('Schema initialization notice:',err.message);}
+}
 export const checksum=async bytes=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))).map(b=>b.toString(16).padStart(2,'0')).join('');
 export const storedRow=row=>{const report=JSON.parse(row.report),referral=row.referral?JSON.parse(row.referral):null;const name=row.owner_name||report.sections.flatMap(s=>s.rows).find(r=>['আবেদনকারী','নাম'].includes(r.label))?.value||'ব্যবহারকারী';return{id:row.id,kind:row.kind,title:row.title,status:row.status,shared:!!row.shared,version:row.version,category:row.category||'unclassified',risk:row.risk||'UNKNOWN',classifiedBy:row.classified_by||null,assignedContactId:row.assigned_contact_id||null,referral:referral?{...referral,needsReview:row.current_contact_version!==undefined&&(row.current_contact_version!==referral.contact.version||row.current_contact_active!==1)}:null,applicant:{id:row.owner,name},createdAt:row.created_at,updatedAt:row.updated_at,report};};
 export const categories=['unclassified','document','buyer','mutation','record','tax','inheritance','boundary','fraud','review'];
