@@ -1,14 +1,22 @@
 # 🛡️ ল্যান্ডশিল্ড বাংলাদেশ · ডিজিটাল ভূমিসেবা প্ল্যাটফর্ম
 ### *LandShield Bangladesh — Modern Intelligent Land Governance & Citizen Workspace*
 
+[![Live Demo](https://img.shields.io/badge/Live%20Platform-Click%20Here-059669?style=for-the-badge&logo=cloudflare&logoColor=white)](https://landshield-bangladesh.nexameet-arnob.workers.dev/)
 [![Node.js](https://img.shields.io/badge/Node.js-24%2B-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
 [![React](https://img.shields.io/badge/React-19.2-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-6.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-8.2-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![TailwindCSS](https://img.shields.io/badge/Tailwind-3.4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-[![SQLite](https://img.shields.io/badge/Database-SQLite%20WAL-003B57?style=for-the-badge&logo=sqlite&logoColor=white)](https://sqlite.org/)
+[![SQLite](https://img.shields.io/badge/Database-Cloudflare%20D1%20%2F%20SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)](https://sqlite.org/)
 [![Drizzle ORM](https://img.shields.io/badge/ORM-Drizzle-C5F74F?style=for-the-badge&logo=drizzle&logoColor=black)](https://orm.drizzle.team/)
-[![Status](https://img.shields.io/badge/Platform-Production%20Ready-059669?style=for-the-badge)](http://localhost:4173)
+
+---
+
+## 🌐 অফিসিয়াল লাইভ প্ল্যাটফর্ম লিংক
+
+সরাসরি ব্রাউজারে লাইভ পোর্টালটি ব্যবহার ও পরীক্ষা করতে নিচের লিংকে প্রবেশ করুন:
+
+👉 **[ল্যান্ডশিল্ড বাংলাদেশ · ভূমিসেবা](https://landshield-bangladesh.nexameet-arnob.workers.dev/)**
 
 ---
 
@@ -24,11 +32,10 @@
 
 | ফিল্ড | মান (Credentials) | বিবরণ |
 | :--- | :--- | :--- |
-| **অ্যাডমিন ইমেইল ১** | `eaarnob178@gmail.com` | প্রাথমিক সুপার-অ্যাডমিন আইডি |
-| **অ্যাডমিন ইমেইল ২** | `earnob178@gmail.com` | বিকল্প অনুমোদিত অ্যাডমিন আইডি |
+| **অ্যাডমিন ইমেইল** | `eaarnob178@gmail.com` | অফিসিয়াল সুপার-অ্যাডমিন আইডি |
 | **পাসওয়ার্ড** | `arnob1234` | সুরক্ষিত PBKDF2-HMAC হ্যাশ দ্বারা সংরক্ষিত |
-| **ভূমিকা (Role)** | `System Administrator` | পূর্ণ পর্যালোচনাকারী ও নিয়ন্ত্রক |
-| **লগইন পোর্টাল** | `http://localhost:4173/` ➔ **অ্যাডমিন লগইন** | সাইটের ওপরের ডানে "অ্যাডমিন" বোতাম |
+| **ভূমিকা (Role)** | `System Administrator` | পূর্ণ পর্যালোচনাকারী ও সুপার অ্যাডমিন |
+| **লগইন পোর্টাল** | [ল্যান্ডশিল্ড বাংলাদেশ · ভূমিসেবা](https://landshield-bangladesh.nexameet-arnob.workers.dev/) ➔ **অ্যাডমিন** | সাইটের ওপরের ডানে "অ্যাডমিন" বোতাম |
 
 > 🔒 **নিরাপত্তা নোট:** অ্যাডমিন পাসওয়ার্ড সার্ভারে লবণাক্ত (salted) PBKDF2 এবং ১০০,০০০ ইটারেশনের HMAC-SHA256 পেপারের সাহায্যে সংরক্ষিত। কোনো অবস্থাতেই মূল পাসওয়ার্ড ডাটাবেজে প্লেইনটেক্সট হিসেবে থাকে না।
 
@@ -37,33 +44,23 @@
 ## 🚀 দ্রুত শুরু করুন (Quick Start Guide)
 
 ### ১. পূর্বশর্ত
-- **Node.js**: সংস্করণ `v24.0.0` বা এর পরবর্তী (বিল্ট-ইন `node:sqlite` সাপোর্টের জন্য)।
+- **Node.js**: সংস্করণ `v24.0.0` বা এর পরবর্তী।
 - **npm**: আধুনিক প্যাকেজ ম্যানেজার।
 
-### ২. ইনস্টলেশন ও ডিপ্লয়মেন্ট
+### ২. ইনস্টলেশন ও চালনা
 
 ```bash
 # ১. ডিপেনডেন্সি ইনস্টল করুন
 npm install
 
-# ২. লোকাল সার্ভারে ডেভেলপমেন্ট মোডে লাইভ করুন
-npm run dev
-```
-
-সার্ভার সফলভাবে চালু হলে আপনার ব্রাউজারে খুলুন:
-👉 **`http://localhost:4173`**
-
-### ৩. প্রোডাকশন বিল্ড ও প্রিভিউ
-
-```bash
-# টেস্ট সুট চালান (৭০টি টেস্ট সম্পূর্ণ পাস)
+# ২. টেস্ট সুট চালান (৭০টি টেস্ট সম্পূর্ণ পাস)
 npm test
 
-# সম্পূর্ণ প্রোডাকশন অপ্টিমাইজড বান্ডিল তৈরি করুন
+# ৩. সম্পূর্ণ প্রোডাকশন অপ্টিমাইজড বান্ডিল তৈরি করুন
 npm run build
 
-# বিল্ট প্রোডাকশন সার্ভার প্রিভিউ করুন
-npm run preview
+# ৪. সার্ভার চালু করুন
+npm start
 ```
 
 ---
@@ -138,6 +135,6 @@ LandShield-BhumiSeba/
 
 ## 📞 কারিগরি সহায়তা ও যোগাযোগ
 
-- **প্ল্যাটফর্ম**: ল্যান্ডশিল্ড বাংলাদেশ (LandShield - BhumiSeba)
-- **লাইভ পোর্টাল**: `http://localhost:4173`
+- **প্ল্যাটফর্ম**: [ল্যান্ডশিল্ড বাংলাদেশ · ভূমিসেবা](https://landshield-bangladesh.nexameet-arnob.workers.dev/)
+- **অফিসিয়াল লাইভ লিংক**: `https://landshield-bangladesh.nexameet-arnob.workers.dev/`
 - **লাইসেন্স**: সর্বস্বত্ব সংরক্ষিত · ডিজিটাল ল্যান্ড গভর্ন্যান্স রিসার্চ অ্যান্ড ডেভেলপমেন্ট
