@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build && node scripts/build-worker.mjs",
     "lint": "oxlint",
     "preview": "node server/preview.js",
+    "start": "node server/preview.js",
     "db:generate": "drizzle-kit generate",
     "test": "node --test tests/*.test.js",
     "prebuild": "node scripts/prepare-ocr-assets.mjs",
