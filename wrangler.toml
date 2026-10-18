@@ -12,9 +12,10 @@ binding = "DB"
 database_name = "landshield-db"
 database_id = "dd084120-9012-434a-9bec-2e51bec54933"
 
-[[r2_buckets]]
-binding = "BUCKET"
-bucket_name = "landshield-evidence"
+# Optional: Uncomment when R2 bucket 'landshield-evidence' is created in Cloudflare
+# [[r2_buckets]]
+# binding = "BUCKET"
+# bucket_name = "landshield-evidence"
 
 [vars]
 AI_MODEL = "gpt-4.1-mini"
