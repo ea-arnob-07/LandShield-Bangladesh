@@ -1,0 +1,20 @@
+name = "landshield-bhumiseba"
+main = "server/worker.js"
+compatibility_date = "2026-05-01"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = "dist/client"
+binding = "ASSETS"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "landshield-db"
+database_id = "landshield-db-id"
+
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "landshield-evidence"
+
+[vars]
+AI_MODEL = "gpt-4.1-mini"
